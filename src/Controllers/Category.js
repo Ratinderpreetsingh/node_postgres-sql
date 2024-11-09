@@ -1,4 +1,4 @@
-const {createCategory} = require('../Models/Category')
+const {createCategory, getAllCategory} = require('../Models/Category')
 
  const createCategoryController = async (req, res) => {
 
@@ -19,4 +19,19 @@ const {createCategory} = require('../Models/Category')
     }
 }
 
-module.exports ={createCategoryController}
+
+const getCategoryController = async(req,res)=>{
+    console.log("df")
+    try {
+        const respone = await getAllCategory()
+        res.status(200).json({
+            message:"GET CATEGORY sUCCESFULLY",
+            category:respone
+        })
+    } catch (error) {
+        console.error('Error creating category:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+
+module.exports ={createCategoryController,getCategoryController}

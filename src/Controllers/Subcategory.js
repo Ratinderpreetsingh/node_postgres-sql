@@ -1,4 +1,4 @@
-const { subcategory } = require('../Models/SubCategory'); // Import your subcategory model
+const { createSubCategory } = require('../Models/SubCategory'); // Import your subcategory model
 
 // Controller to create a new subcategory
 const createSubCategoryController = async (req, res) => {
@@ -13,9 +13,9 @@ const createSubCategoryController = async (req, res) => {
        
 
         // Proceed to create the subcategory if category exists
-        const result = await subcategory.create({ name, description, category_id });
+        const result = await createSubCategory( name, description, category_id );
 
-        return res.status(201).json({
+         res.status(201).json({
             message: 'Subcategory created successfully!',
             subcategory: result
         });

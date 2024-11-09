@@ -9,11 +9,27 @@ const app = express();
 app.use(bodyParser.json());  // Parse JSON bodies
 
 // Routes
-const categoryRoutes = require('./src/Routes/Category');  // Import category routes
-const subCategoryRoutes = require('./src/Routes/subCategoryRoutes');  // Import category routes
+const categoryRoutes = require('./src/Routes/Category');  
+const subCategoryRoutes = require('./src/Routes/subCategoryRoutes');  
+const products_Routes = require('./src/Routes/Products_Routes');  
+const Customer_Routes = require('./src/Routes/Customer_Routes');  
+const Order_Routes = require('./src/Routes/Order_Routes');  
+const Order_Items_Routes = require('./src/Routes/Order_items_Routes');  
 
-app.use('/api/category', categoryRoutes);  // Mount category routes under /api
-app.use('/api/subcategory', subCategoryRoutes);  // Mount category routes under /api
+
+
+
+
+app.use('/api/category', categoryRoutes);  
+app.use('/api/subcategory', subCategoryRoutes);  
+app.use('/api/product', products_Routes);  
+app.use('/api/customer', Customer_Routes);  
+app.use('/api/order', Order_Routes);  
+app.use('/api/order_items', Order_Items_Routes);  
+
+
+
+
 
 
 // Connect to the database and start the server
