@@ -2,10 +2,10 @@ const { createOrder } = require('../Models/Orders'); // Import your subcategory 
 
 // Controller to create a new subcategory
 const createOrder_Controller = async (req, res) => {
-    const {customer_id,total_price} = req.body;
+    const {customer_id,total_amount} = req.body;
 
     // Basic input validation
-    if (!customer_id|| !total_price) {
+    if (!customer_id|| !total_amount) {
         return res.status(400).json({ message: "customer_name" });
     }
 
@@ -13,7 +13,7 @@ const createOrder_Controller = async (req, res) => {
        
 
         // Proceed to create the subcategory if category exists
-        const result = await createOrder(customer_id,total_price);
+        const result = await createOrder(customer_id,total_amount);
 
          res.status(201).json({
             message: 'Order created successfully!',

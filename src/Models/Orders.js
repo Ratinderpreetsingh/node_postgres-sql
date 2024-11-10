@@ -1,9 +1,9 @@
 const {pool} = require('../../Config/db')
 
-const createOrder =async(customer_id,total_price)=>{
+const createOrder =async(customer_id,total_amount)=>{
     try {
         const response = await pool.query(
-            `INSERT INTO orders(customer_id,total_price) VALUES($1,$2) RETURNING *`,[customer_id,total_price]
+            `INSERT INTO orders(customer_id,total_amount) VALUES($1,$2) RETURNING *`,[customer_id,total_amount]
         )
         return response.rows[0]
 
