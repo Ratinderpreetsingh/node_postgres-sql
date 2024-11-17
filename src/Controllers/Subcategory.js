@@ -1,11 +1,11 @@
-const { createSubCategory } = require('../Models/SubCategory'); // Import your subcategory model
+const { createSubCategory, getAllSubCategory } = require('../Models/SubCategory'); // Import your subcategory model
 
 // Controller to create a new subcategory
 const createSubCategoryController = async (req, res) => {
-    const { name, description, category_id } = req.body;
+    const { subcategory_name, subcategory_description, category_id } = req.body;
 
     // Basic input validation
-    if (!name || !description || !category_id) {
+    if (!subcategory_name|| !subcategory_description || !category_id) {
         return res.status(400).json({ message: "Name, description, and category_id are required." });
     }
 
@@ -13,7 +13,7 @@ const createSubCategoryController = async (req, res) => {
        
 
         // Proceed to create the subcategory if category exists
-        const result = await createSubCategory( name, description, category_id );
+        const result = await createSubCategory( subcategory_name, subcategory_description, category_id );
 
          res.status(201).json({
             message: 'Subcategory created successfully!',
@@ -25,4 +25,17 @@ const createSubCategoryController = async (req, res) => {
     }
 };
 
-module.exports = { createSubCategoryController };
+
+const get_SubCategory_Controller = async(req,res)=>{
+    try {
+        const respone = await getAllSubCategory()
+        res.status(200).json({
+            message:"GET SUBCATEGORY SUCCESFULLY",
+            subcategory:respone
+        })
+    } catch (error) {
+        console.error('Error creating SUBCATEGORY:', error);
+        res.status(500).json({ error: 'Internal Server Error' });
+    }
+}
+module.exports = { createSubCategoryController,get_SubCategory_Controller };

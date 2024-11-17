@@ -1,9 +1,12 @@
 // index.js
 const express = require('express');
+const cors = require('cors');
+
 const bodyParser = require('body-parser');
 require('dotenv').config();  // Load environment variables
 const db = require('./Config/db');  // Import DB connection
 const app = express();
+app.use(cors());
 
 // Middleware
 app.use(bodyParser.json());  // Parse JSON bodies

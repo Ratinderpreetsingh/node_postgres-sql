@@ -1,10 +1,10 @@
 const { pool } = require('../../Config/db');
 
-const createCategory = async (name, description) => {
+const createCategory = async (category_name, category_description) => {
   try {
     const result = await pool.query(
-      'INSERT INTO category(name, description) VALUES($1, $2) RETURNING *',
-      [name, description]
+      'INSERT INTO category(category_name,category_description) VALUES($1, $2) RETURNING *',
+      [category_name, category_description]
     );
     console.log(result)
     return result.rows[0];  // Return the created category
@@ -18,27 +18,23 @@ const getAllCategory = async () => {
   debugger
   try {
     const response = await pool.query(
-      `  SELECT 
-        c.id AS category_id,
-        c.name AS category_name,
-        c.description AS category_description,
-        COALESCE(json_agg(
-          json_build_object(
-            'subcategory_id', s.id,
-            'subcategory_name', s.name,
-            'subcategory_description', s.description
-          )
-        ) FILTER (WHERE s.id IS NOT NULL), '[]') AS subcategories
-      FROM 
-        category c
-      LEFT JOIN 
-        subcategory s ON c.id = s.category_id
-      GROUP BY 
-        c.id;
-    
-  `
+    ` 
+SELECT 
+c.category_id,
+c.category_name,
+c.category_description,
+json_agg(
+json_build_object(
+'subcategory_id', s.subcategory_id,
+ 'subcategory_name', s.subcategory_name,
+    'subcategory_description', s.subcategory_description
+)
+) as subcategories
+FROM category c
+  LEFT JOIN  subcategory s ON s.category_id = c.category_id
+     GROUP BY 
+        c.category_id; `
     )
-    console.log(response)
     return response.rows
   } catch (error) {
 
